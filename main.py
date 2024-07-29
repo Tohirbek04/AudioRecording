@@ -27,7 +27,6 @@ class AudioRecording:
         except Exception as e:
             print(f"Yozib olishda kutilmagan xatolik yuz berdi: {e}")
 
-
     def change_format(self, new_format, audio):
         command = [
             'ffmpeg',
@@ -41,12 +40,12 @@ class AudioRecording:
         except subprocess.CalledProcessError as e:
             print(f"Formatni uzgartirishda xatolik yuz berdi: {e}")
 
-    def filter_audio(self, audio):
+    def filter_audio(self, audio, file_name):
         command = [
             'ffmpeg',
             '-i', audio,
             '-af', 'silenceremove=stop_periods=-1:stop_duration=0.5:stop_threshold=-30dB',
-            f'filter_{audio}'
+            file_name
         ]
         subprocess.run(command, check=True)
 
